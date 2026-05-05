@@ -1,0 +1,8 @@
+.env
+pgdata/
+ollama/
+dump/
+__pycache__/
+*.pyc
+.venv/
+.DS_Store

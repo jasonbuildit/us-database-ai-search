@@ -1,0 +1,33 @@
+;
+; Archive created at 2026-04-06 13:44:59 UTC
+;     dbname: data_store_api
+;     TOC Entries: 978
+;     Compression: gzip
+;     Dump Version: 1.15-0
+;     Format: DIRECTORY
+;     Integer: 4 bytes
+;     Offset: 8 bytes
+;     Dumped from database version: 16.9
+;     Dumped by pg_dump version: 16.11
+; Selected TOC Entries:
+19; 2615 16414 SCHEMA - int api_user
+26; 2615 2200 SCHEMA - public root
+29; 2615 16416 SCHEMA - raw api_user
+31; 2615 16418 SCHEMA - rpt api_user
+2; 3079 16422 EXTENSION - dblink 
+5971; 0 0 COMMENT - EXTENSION dblink 
+3; 3079 16425 EXTENSION - hstore 
+5972; 0 0 COMMENT - EXTENSION hstore 
+4; 3079 16427 EXTENSION - intarray 
+5973; 0 0 COMMENT - EXTENSION intarray 
+8; 3079 58937644 EXTENSION - pg_prewarm 
+5974; 0 0 COMMENT - EXTENSION pg_prewarm 
+5; 3079 16428 EXTENSION - pg_stat_statements 
+5975; 0 0 COMMENT - EXTENSION pg_stat_statements 
+6; 3079 16431 EXTENSION - pg_trgm 
+5976; 0 0 COMMENT - EXTENSION pg_trgm 
+7; 3079 16432 EXTENSION - postgres_fdw 
+5977; 0 0 COMMENT - EXTENSION postgres_fdw 
+5978; 0 0 COMMENT public FUNCTION get_table_bloat_approx(OUT approx_free_percent double precision, OUT approx_free_space double precision) root
+460; 1259 3215793057 TABLE rpt award_search etl_user
+5961; 0 3215793057 TABLE DATA rpt award_search etl_user
