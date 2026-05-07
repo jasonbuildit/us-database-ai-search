@@ -1,0 +1,16 @@
+{
+  "answer": "There are **1,530 rows** in the `public.agency` table. This table contains records for both toptier and subtier agencies tracked in the USAspending database.",
+  "sql": "SELECT COUNT(*) AS row_count FROM public.agency LIMIT 1;",
+  "result": {
+    "columns": [
+      "row_count"
+    ],
+    "rows": [
+      [
+        1530
+      ]
+    ],
+    "row_count": 1
+  },
+  "_dur_s": 3.7
+}

@@ -1,0 +1,1 @@
+{"answer":"There are **1,530 agencies** in the `public.agency` table. This count includes all agency records, regardless of whether they are toptier agencies, subtier agencies, or user-selectable agencies.","sql":"SELECT COUNT(*) AS agency_count FROM public.agency;","result":{"columns":["agency_count"],"rows":[[1530]],"row_count":1}}

@@ -1,0 +1,16 @@
+{
+  "answer": "There are **12,153 recipients** in the `rpt.recipient_lookup` table whose `legal_business_name` contains the word **\"UNIVERSITY\"** (case-insensitive). This count spans all universities, university systems, and any other organizations with \"university\" as part of their registered name.",
+  "sql": "SELECT COUNT(*) AS university_recipient_count\nFROM rpt.recipient_lookup\nWHERE legal_business_name ILIKE '%UNIVERSITY%'\nLIMIT 1000;",
+  "result": {
+    "columns": [
+      "university_recipient_count"
+    ],
+    "rows": [
+      [
+        12153
+      ]
+    ],
+    "row_count": 1
+  },
+  "_dur_s": 18.65
+}

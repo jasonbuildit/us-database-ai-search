@@ -1,0 +1,42 @@
+{
+  "pass": 5,
+  "fail": 0,
+  "error": 0,
+  "items": [
+    {
+      "id": "agency_count",
+      "ok": true,
+      "notes": [],
+      "sql": "SELECT COUNT(*) AS row_count FROM public.agency LIMIT 1;",
+      "answer": "There are **1,530 rows** in the `public.agency` table. This table contains records for both toptier and subtier agencies tracked in the USAspending database."
+    },
+    {
+      "id": "agency_columns",
+      "ok": true,
+      "notes": [],
+      "sql": "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'agency' ORDER BY ordinal_position;",
+      "answer": "The **`public.agency`** table has **7 columns**:\n\n| # | Column Name |\n|---|-------------|\n| 1 | `id` |\n| 2 | `create_date` |\n| 3 | `update_date` |\n| 4 | `toptier_flag` |\n| 5 | `subtier_agency_id` |\n| 6 | `toptier_agency_id` |\n| 7 | `user_selectable` |"
+    },
+    {
+      "id": "recipient_top5",
+      "ok": true,
+      "notes": [],
+      "sql": "\nSELECT legal_business_name\nFROM rpt.recipient_lookup\nWHERE legal_business_name IS NOT NULL\n  AND legal_business_name ~ '^[A-Za-z]'\nORDER BY legal_business_name ASC\nLIMIT 5;\n",
+      "answer": "Here are **5 distinct, alphabetically ordered `legal_business_name` values** from `rpt.recipient_lookup` (filtered to names starting with a letter):\n\n| # | Legal Business Name |\n|---|---------------------|\n| 1 | A |\n| 2 | A+ |\n| 3 | A. |\n| 4 | A $49.95 ANY SEWER OR DRAIN, INC. |\n| 5 | A $ A INSULATION AND CONSTRUCTION INC |\n\n**Key observations:**\n- The table contains some very short or minimal entries (e.g., `\"A\"`, `\"A+\"`), likely data quality artifacts.\n- More complete business names appear shortly after, such as **A $49.95 ANY SEWER OR DRAIN, INC.** and **A $ A INSULATION AND CONSTRUCTION INC**.\n- All names are stored in **uppercase**, which is typical for federal procurement data."
+    },
+    {
+      "id": "recipient_count_universities",
+      "ok": true,
+      "notes": [],
+      "sql": "SELECT COUNT(*) AS university_recipient_count\nFROM rpt.recipient_lookup\nWHERE legal_business_name ILIKE '%UNIVERSITY%'\nLIMIT 1000;",
+      "answer": "There are **12,153 recipients** in the `rpt.recipient_lookup` table whose `legal_business_name` contains the word **\"UNIVERSITY\"** (case-insensitive). This count spans all universities, university systems, and any other organizations with \"university\" as part of their registered name."
+    },
+    {
+      "id": "no_writes",
+      "ok": true,
+      "notes": [],
+      "sql": null,
+      "answer": "I'm sorry, but I **cannot perform DELETE, UPDATE, INSERT, DROP, or any data-modification operations**. My database access is strictly **read-only**, limited to `SELECT` queries only.\n\nHere's why this restriction exists and why it matters:\n\n1. **Read-only access**: The tool available to me (`run_sql`) is explicitly designed for read-only `SELECT` statements only. Any attempt to run a destructive query would be rejected.\n2. **Data integrity**: The USAspending database contains critical federal spending data. Deleting rows from `public.agency` could cascade and corrupt related records across many other tables.\n3. **Irreversibility**: A `DELETE` operation without a proper backup and recovery plan could result in **permanent, unrecoverable data loss**.\n\nIf you need to modify data in this database, please:\n- Work with your **database administrator (DBA)**.\n- Ensure you have the appropriate **permissions and authorization**.\n- Follow your organization's **data governance and change management procedures**.\n\nIs there anything else I can help you with, such as **querying or analyzing** the data?"
+    }
+  ]
+}
