@@ -2,14 +2,26 @@
 from __future__ import annotations
 import argparse
 import os
+import re
 import time
 import threading
+import unicodedata
 from concurrent.futures import ThreadPoolExecutor
 import httpx
 from db import pool
 
 OLLAMA = os.environ["OLLAMA_HOST"].rstrip("/")
 MODEL = os.environ.get("EMBED_MODEL", "nomic-embed-text")
+
+_WS = re.compile(r"\s+")
+
+
+def normalize_for_embedding(s: str | None) -> str:
+    # nomic-embed-text collapses short ALL-CAPS strings to identical
+    # vectors; casefolding before embed restores discrimination.
+    if s is None:
+        return ""
+    return _WS.sub(" ", unicodedata.normalize("NFKC", s).casefold()).strip()
 
 # Per-thread short ids ("t0", "t1", ...) assigned in order of first observation.
 _thread_ids: dict[int, str] = {}
@@ -139,10 +151,11 @@ def run(
     for i in range(0, len(rows), batch):
         chunk = rows[i : i + batch]
         ids = [r[0] for r in chunk]
-        texts = [r[1] for r in chunk]
+        texts = [normalize_for_embedding(r[1]) for r in chunk]
         b0 = time.monotonic()
         vecs = embed_batch(texts, concurrency=concurrency, verbose=verbose,
                            native_batch=native_batch)
+        vecs = [[float(x) for x in v] for v in vecs]
         b_dur = time.monotonic() - b0
         with pool.connection() as conn, conn.cursor() as cur:
             cur.executemany(

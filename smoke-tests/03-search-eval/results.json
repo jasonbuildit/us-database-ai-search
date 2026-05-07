@@ -1,142 +1,142 @@
 {
   "table": "rpt.recipient_lookup",
-  "sample": 100,
+  "sample": 200,
   "k": 10,
   "overall": {
     "vector": {
-      "hits": 28,
-      "total": 697,
-      "recall": 0.040172166427546625
+      "hits": 586,
+      "total": 1394,
+      "recall": 0.42037302725968434
     },
     "bm25": {
-      "hits": 538,
-      "total": 697,
-      "recall": 0.7718794835007173
+      "hits": 1047,
+      "total": 1394,
+      "recall": 0.7510760401721664
     },
     "rrf": {
-      "hits": 44,
-      "total": 697,
-      "recall": 0.06312769010043041
+      "hits": 590,
+      "total": 1394,
+      "recall": 0.4232424677187948
     }
   },
   "by_perturbation": {
     "identity": {
       "vector": {
-        "hits": 6,
-        "total": 100,
-        "recall": 0.06
+        "hits": 97,
+        "total": 200,
+        "recall": 0.485
       },
       "bm25": {
-        "hits": 100,
-        "total": 100,
+        "hits": 200,
+        "total": 200,
         "recall": 1.0
       },
       "rrf": {
-        "hits": 12,
-        "total": 100,
-        "recall": 0.12
+        "hits": 98,
+        "total": 200,
+        "recall": 0.49
       }
     },
     "lower": {
       "vector": {
-        "hits": 2,
-        "total": 100,
-        "recall": 0.02
+        "hits": 96,
+        "total": 200,
+        "recall": 0.48
       },
       "bm25": {
-        "hits": 100,
-        "total": 100,
+        "hits": 200,
+        "total": 200,
         "recall": 1.0
       },
       "rrf": {
-        "hits": 2,
-        "total": 100,
-        "recall": 0.02
+        "hits": 96,
+        "total": 200,
+        "recall": 0.48
       }
     },
     "drop_first": {
       "vector": {
-        "hits": 0,
-        "total": 99,
-        "recall": 0.0
+        "hits": 74,
+        "total": 198,
+        "recall": 0.37373737373737376
       },
       "bm25": {
-        "hits": 91,
-        "total": 99,
-        "recall": 0.9191919191919192
+        "hits": 167,
+        "total": 198,
+        "recall": 0.8434343434343434
       },
       "rrf": {
-        "hits": 1,
-        "total": 99,
-        "recall": 0.010101010101010102
+        "hits": 76,
+        "total": 198,
+        "recall": 0.3838383838383838
       }
     },
     "drop_last": {
       "vector": {
-        "hits": 5,
-        "total": 99,
-        "recall": 0.050505050505050504
+        "hits": 80,
+        "total": 198,
+        "recall": 0.40404040404040403
       },
       "bm25": {
-        "hits": 98,
-        "total": 99,
-        "recall": 0.98989898989899
+        "hits": 187,
+        "total": 198,
+        "recall": 0.9444444444444444
       },
       "rrf": {
-        "hits": 6,
-        "total": 99,
-        "recall": 0.06060606060606061
+        "hits": 80,
+        "total": 198,
+        "recall": 0.40404040404040403
       }
     },
     "swap_adjacent": {
       "vector": {
-        "hits": 8,
-        "total": 99,
-        "recall": 0.08080808080808081
+        "hits": 95,
+        "total": 198,
+        "recall": 0.4797979797979798
       },
       "bm25": {
-        "hits": 99,
-        "total": 99,
+        "hits": 198,
+        "total": 198,
         "recall": 1.0
       },
       "rrf": {
-        "hits": 14,
-        "total": 99,
-        "recall": 0.1414141414141414
+        "hits": 96,
+        "total": 198,
+        "recall": 0.48484848484848486
       }
     },
     "typo": {
       "vector": {
-        "hits": 5,
-        "total": 100,
-        "recall": 0.05
+        "hits": 83,
+        "total": 200,
+        "recall": 0.415
       },
       "bm25": {
-        "hits": 11,
-        "total": 100,
-        "recall": 0.11
+        "hits": 16,
+        "total": 200,
+        "recall": 0.08
       },
       "rrf": {
-        "hits": 6,
-        "total": 100,
-        "recall": 0.06
+        "hits": 83,
+        "total": 200,
+        "recall": 0.415
       }
     },
     "truncate": {
       "vector": {
-        "hits": 2,
-        "total": 100,
-        "recall": 0.02
+        "hits": 61,
+        "total": 200,
+        "recall": 0.305
       },
       "bm25": {
-        "hits": 39,
-        "total": 100,
-        "recall": 0.39
+        "hits": 79,
+        "total": 200,
+        "recall": 0.395
       },
       "rrf": {
-        "hits": 3,
-        "total": 100,
-        "recall": 0.03
+        "hits": 61,
+        "total": 200,
+        "recall": 0.305
       }
     }
   }

@@ -23,13 +23,20 @@ docker compose exec ai python embed.py \
 Tables in this dump are schema-qualified — pass them as `schema.name`
 (e.g. `rpt.award_search`, `public.agency`). Bare names default to `public`.
 
-No tests, linter, or formatter are configured. Verify changes by hitting the
-FastAPI endpoints with `curl` (examples in README) and by running
-`docker compose exec ai python schema_introspect.py`.
+Verify changes by hitting the FastAPI endpoints with `curl` (examples in
+README) and by running `docker compose exec ai python schema_introspect.py`.
+
+A pytest suite + smoke harness lives under `smoke-tests/` (four tracks:
+endpoints, /ask eval, search-quality eval, pytest). Each track writes JSON
+under `smoke-tests/0X-*/`; `metabase/load_results.py` ingests those into
+`ops.*` tables and `metabase/setup_metabase.py` builds the dashboard. See
+`smoke-tests/README.md` and `metabase/README.md`.
 
 ## Architecture
 
-- `docker-compose.yml` orchestrates four services. `postgres` is built from
+- `docker-compose.yml` orchestrates four services: `postgres`, `ollama`,
+  `metabase` (h2 backend persisted to `./metabase/data/`), and `ai`.
+  `postgres` is built from
   `db/` (pgvector-enabled image + init SQL that creates the `vector`/`pg_trgm`
   extensions, an `ai_reader` read-only role, and the `ai.text_embeddings`
   table with HNSW + GIN indexes). The dump directory is bind-mounted at
@@ -84,5 +91,10 @@ FastAPI endpoints with `curl` (examples in README) and by running
 - Don't `pg_restore` directly from `/Volumes/JAC` — external-drive throughput
   and macOS `._*` AppleDouble files cause failures. Always copy/rsync to
   `./dump` first (`--exclude '._*'`).
-- `pgdata/`, `dump/`, `ollama/`, `.env` are gitignored and large — never
-  commit them.
+- `pgdata/`, `dump/`, `ollama/`, `metabase/data/`, `.env` are gitignored and
+  large — never commit them.
+- Both index-time and query-time embedding paths normalize text via
+  `embed.normalize_for_embedding` (NFKC + casefold + whitespace collapse) —
+  short ALL-CAPS inputs would otherwise collapse to identical
+  `nomic-embed-text` vectors. If you swap the embedder or add a new caller
+  of `embed_batch`, run that text through the same normalizer.

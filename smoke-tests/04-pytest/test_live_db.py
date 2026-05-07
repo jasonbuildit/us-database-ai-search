@@ -28,23 +28,15 @@ def ollama_alive():
         pytest.skip("ollama not reachable on localhost:11434")
 
 
-def test_readonly_cursor_does_not_block_writes_BUG(db_alive):
-    """Documents a bug in ai/db.py: with autocommit=True the
-    `SET TRANSACTION READ ONLY` issued at cursor open ends with the
-    implicit txn for that SET statement and does NOT apply to
-    subsequent statements. Flip this test once the pool is reworked
-    (e.g. open with autocommit=False, or set
-    `default_transaction_read_only = on` per-session).
-    """
+def test_readonly_cursor_blocks_writes(db_alive):
     from db import readonly_cursor
     import psycopg
 
     with readonly_cursor() as cur:
         cur.execute("SELECT 1")
         assert cur.fetchone() == (1,)
-        cur.execute("CREATE TABLE IF NOT EXISTS _smoke_ro_check (x int)")
-        cur.execute("DROP TABLE _smoke_ro_check")  # cleanup
-    # If you reach here, writes weren't blocked — the bug is still present.
+        with pytest.raises(psycopg.errors.ReadOnlySqlTransaction):
+            cur.execute("CREATE TABLE IF NOT EXISTS _smoke_ro_check (x int)")
 
 
 def test_readonly_cursor_statement_timeout(db_alive):
@@ -74,12 +66,11 @@ def test_embed_batch_returns_768d_vectors(ollama_alive):
     assert all(isinstance(x, float) for x in v[:8])
 
 
-def test_embed_uppercase_collapse_is_documented(ollama_alive):
-    """Documents the nomic-embed bug — passes today, fails after model swap."""
-    from embed import embed_batch
+def test_embed_distinct_after_normalize(ollama_alive):
+    from embed import embed_batch, normalize_for_embedding
 
-    a, b = embed_batch(["JOHN SMITH", "JANE DOE"])
-    assert a == b, ("Uppercase short-name embeddings used to collapse to the "
-                    "same vector. If this assertion fails, the embedder was "
-                    "fixed/swapped — flip this test to assert a != b and "
-                    "rebuild the search-quality eval baseline.")
+    a, b = embed_batch([
+        normalize_for_embedding("JOHN SMITH"),
+        normalize_for_embedding("JANE DOE"),
+    ])
+    assert a != b

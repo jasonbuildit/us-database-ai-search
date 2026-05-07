@@ -4,7 +4,7 @@ import os
 import httpx
 from anthropic import Anthropic
 from db import readonly_cursor, pool
-from embed import embed_batch
+from embed import embed_batch, normalize_for_embedding
 from text_to_sql import _run_sql, schema_digest, MODEL, ROW_LIMIT
 
 client = Anthropic()
@@ -58,6 +58,7 @@ TOOLS = [
 
 
 def _vector_search(query: str, k: int = 10, table_name: str | None = None) -> list[dict]:
+    query = normalize_for_embedding(query)
     [vec] = embed_batch([query])
     where = "WHERE TRUE"
     params: list = []
