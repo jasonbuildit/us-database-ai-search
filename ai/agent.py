@@ -88,7 +88,7 @@ def _vector_search(query: str, k: int = 10, table_name: str | None = None) -> li
         ORDER BY score DESC
         LIMIT %s
     """
-    args = [vec, *params, vec, *params, query, query, *params, k]
+    args = [vec, *params, vec, query, *params, query, k]
     with readonly_cursor() as cur:
         cur.execute(sql, args)
         cols = [d.name for d in cur.description]

@@ -1,0 +1,34 @@
+{
+  "answer": "The **`public.agency`** table has **7 columns**:\n\n| # | Column Name |\n|---|-------------|\n| 1 | `id` |\n| 2 | `create_date` |\n| 3 | `update_date` |\n| 4 | `toptier_flag` |\n| 5 | `subtier_agency_id` |\n| 6 | `toptier_agency_id` |\n| 7 | `user_selectable` |",
+  "sql": "SELECT column_name FROM information_schema.columns WHERE table_schema = 'public' AND table_name = 'agency' ORDER BY ordinal_position;",
+  "result": {
+    "columns": [
+      "column_name"
+    ],
+    "rows": [
+      [
+        "id"
+      ],
+      [
+        "create_date"
+      ],
+      [
+        "update_date"
+      ],
+      [
+        "toptier_flag"
+      ],
+      [
+        "subtier_agency_id"
+      ],
+      [
+        "toptier_agency_id"
+      ],
+      [
+        "user_selectable"
+      ]
+    ],
+    "row_count": 7
+  },
+  "_dur_s": 3.84
+}

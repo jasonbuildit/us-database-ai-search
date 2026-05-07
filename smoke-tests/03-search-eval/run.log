@@ -1,0 +1,11 @@
+# sampled 100 rows from rpt.recipient_lookup
+  progress: 25/100 elapsed=24.9s
+  progress: 50/100 elapsed=56.6s
+  progress: 75/100 elapsed=92.4s
+  progress: 100/100 elapsed=120.6s
+Exception ignored while calling deallocator <function ConnectionPool.__del__ at 0x10af6d010>:
+Traceback (most recent call last):
+  File "/Users/jasso/workspace/us-database-ai-search/smoke-tests/04-pytest/.venv/lib/python3.14/site-packages/psycopg_pool/pool.py", line 126, in __del__
+  File "/Users/jasso/workspace/us-database-ai-search/smoke-tests/04-pytest/.venv/lib/python3.14/site-packages/psycopg_pool/_acompat.py", line 152, in gather
+  File "/usr/local/Cellar/python@3.14/3.14.3_1/Frameworks/Python.framework/Versions/3.14/lib/python3.14/threading.py", line 1133, in join
+PythonFinalizationError: cannot join thread at interpreter shutdown

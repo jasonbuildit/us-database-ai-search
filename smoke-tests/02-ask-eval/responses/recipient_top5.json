@@ -1,0 +1,28 @@
+{
+  "answer": "Here are **5 distinct, alphabetically ordered `legal_business_name` values** from `rpt.recipient_lookup` (filtered to names starting with a letter):\n\n| # | Legal Business Name |\n|---|---------------------|\n| 1 | A |\n| 2 | A+ |\n| 3 | A. |\n| 4 | A $49.95 ANY SEWER OR DRAIN, INC. |\n| 5 | A $ A INSULATION AND CONSTRUCTION INC |\n\n**Key observations:**\n- The table contains some very short or minimal entries (e.g., `\"A\"`, `\"A+\"`), likely data quality artifacts.\n- More complete business names appear shortly after, such as **A $49.95 ANY SEWER OR DRAIN, INC.** and **A $ A INSULATION AND CONSTRUCTION INC**.\n- All names are stored in **uppercase**, which is typical for federal procurement data.",
+  "sql": "\nSELECT legal_business_name\nFROM rpt.recipient_lookup\nWHERE legal_business_name IS NOT NULL\n  AND legal_business_name ~ '^[A-Za-z]'\nORDER BY legal_business_name ASC\nLIMIT 5;\n",
+  "result": {
+    "columns": [
+      "legal_business_name"
+    ],
+    "rows": [
+      [
+        "A"
+      ],
+      [
+        "A+"
+      ],
+      [
+        "A."
+      ],
+      [
+        "A $49.95 ANY SEWER OR DRAIN, INC."
+      ],
+      [
+        "A $ A INSULATION AND CONSTRUCTION INC"
+      ]
+    ],
+    "row_count": 5
+  },
+  "_dur_s": 89.28
+}

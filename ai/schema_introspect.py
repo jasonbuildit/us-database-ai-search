@@ -11,9 +11,9 @@ def build_digest() -> str:
         cur.execute("""
             SELECT table_schema, table_name, column_name, data_type, is_nullable
             FROM information_schema.columns
-            WHERE table_schema NOT IN %s
+            WHERE table_schema <> ALL(%s)
             ORDER BY table_schema, table_name, ordinal_position
-        """, (EXCLUDE_SCHEMAS,))
+        """, (list(EXCLUDE_SCHEMAS),))
         cols = cur.fetchall()
 
         cur.execute("""
@@ -27,8 +27,8 @@ def build_digest() -> str:
               ON ccu.constraint_name = tc.constraint_name
              AND ccu.table_schema    = tc.table_schema
             WHERE tc.constraint_type = 'FOREIGN KEY'
-              AND tc.table_schema NOT IN %s
-        """, (EXCLUDE_SCHEMAS,))
+              AND tc.table_schema <> ALL(%s)
+        """, (list(EXCLUDE_SCHEMAS),))
         fks = cur.fetchall()
 
         tables: dict[str, dict] = {}
